@@ -1,0 +1,51 @@
+@import "../dependencies/helpers.scss";
+@import "../dependencies/variables.scss";
+.overlay {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+    .spinner {
+        @include opacity(1);
+    }
+}
+
+
+/*
+.overlay {
+    background: $tmo-black-grey;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 53.59px;
+    z-index: 3;
+    &::after {
+        @include border-radius(50%);
+        content: "";
+        animation: spin 1s linear infinite;
+        border: 4px solid $tmo-white-grey;
+        border-top: 4px solid $tmo-magenta;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: calc(50% - 25px);
+        top: calc(50% - 25px);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+*/

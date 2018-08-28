@@ -1,0 +1,162 @@
+/***** Define all global stylesheets *****/
+/* inject dependencies scss */
+@import "../dependencies/fontfaces.scss";
+@import "../dependencies/helpers.scss";
+@import "../dependencies/variables.scss";
+
+/* initial global style */
+
+*:focus {
+  outline: none;
+}
+
+html {
+  background-color: $chat-white;
+  color: $chat-black;
+  font-family: Tele-Grotesk-Hal, Verdana, SansSerif;
+}
+
+h1 {
+  font-family: Tele-Grotesk-Ult, Verdana, SansSerif;
+  font-size: 2.2em;
+  text-transform: capitalize;
+}
+
+h2 {
+  font-family: Tele-Grotesk-Ult, Verdana, SansSerif;
+  font-size: 2em;
+}
+
+h3 {
+  font-family: Tele-Grotesk-Fet, Verdana, SansSerif;
+  font-size: 1.8em;
+}
+
+h4 {
+  font-family: Tele-Grotesk-Fet, Verdana, SansSerif;
+  font-size: 1.5em;
+}
+
+h5 {
+  font-family: Tele-Grotesk-Hal, Verdana, SansSerif;
+  font-size: 1.2em;
+}
+
+h6 {
+  font-family: Tele-Grotesk-Hal, Verdana, SansSerif;
+  font-size: 1em;
+}
+
+p,
+label {
+  font-family: Tele-Grotesk-Hal, Verdana, SansSerif;
+  font-size: 1em;
+}
+
+a {
+  color: $chat-dark-grey;
+  cursor: pointer;
+  font-family: Tele-Grotesk-Hal, Verdana, SansSerif;
+  font-size: 1em;
+  text-decoration: none;
+  &.white{
+    color:$chat-white
+  }
+  &:hover{
+    color: $chat-magenta;
+    -webkit-transition: color 1s ease;
+    -moz-transition: color 1s ease;
+    -ms-transition: color 1s ease;
+    -o-transition: color 1s ease;
+    transition: color 1s ease;
+  }
+}
+
+fieldset {
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  caption {
+    color: $chat-magenta;
+  }
+}
+
+textarea {
+  @include box-sizing(border-box);
+  width: 100%;
+}
+
+textarea,
+button {
+  font-size: 1em;
+  font-family: Tele-Grotesk-Hal, Verdana, sans-serif;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  @include box-sizing(border-box);
+  display: block;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Safari hack */
+
+@media not all and (min-resolution: .001dpcm) {
+  /* Safari 11+ hack */
+  @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+    h3.heading.unselectable, h5, h6 {
+      letter-spacing: -1px;
+    }
+    input[type=search] {
+      -webkit-appearance: textfield;
+      outline-offset: -2px;
+    }
+  }
+  /* Safari 10.1+ hack */
+  @supports (-webkit-appearance: none) {
+    h3.heading.unselectable,
+    h5,
+    h6 {
+      letter-spacing: -1px;
+    }
+    input[type=search] {
+      -webkit-appearance: textfield;
+      outline-offset: -2px;
+    }
+  }
+}
+
+/* Mozilla FireFox hack */
+
+@-moz-document url-prefix() {
+  h3.heading.unselectable {
+    letter-spacing: -1px;
+  }
+}

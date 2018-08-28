@@ -1,0 +1,94 @@
+/***** Define all generic mixins*****/
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    filter: alpha(opacity=$opacity * 100);
+}
+
+@mixin transition($property, $duration, $easing: linear) {
+    -webkit-transition: $property $duration $easing;
+    -moz-transition: $property $duration $easing;
+    -o-transition: $property $duration $easing;
+    transition: $property $duration $easing;
+}
+
+@mixin transform($transforms) {
+    -webkit-transform: $transforms;
+    -moz-transform: $transforms;
+    -ms-transform: $transforms;
+    -o-transform: $transforms;
+    transform: $transforms;
+}
+
+@mixin translate($x, $y) {
+    @include transform(translate($x, $y));
+}
+
+@mixin rotate($deg) {
+    @include transform(rotate($deg));
+}
+
+@mixin scale($val) {
+    @include transform(scale($val));
+}
+
+@mixin user-select($prop) {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@mixin box-sizing($val) {
+    -webkit-box-sizing: $val;
+    -moz-box-sizing: $val;
+    box-sizing: $val;
+}
+
+@mixin border-radius($rad) {
+    -webkit-border-radius: $rad;
+    -moz-border-radius: $rad;
+    border-radius: $rad;
+}
+
+@mixin border-top-radius($rad) {
+    -webkit-border-top-right-radius: $rad;
+    -webkit-border-top-left-radius: $rad;
+    -moz-border-radius-topright: $rad;
+    -moz-border-radius-topleft: $rad;
+    border-top-right-radius: $rad;
+    border-top-left-radius: $rad;
+}
+
+@mixin border-bottom-radius($rad) {
+    -webkit-border-bottom-right-radius: $rad;
+    -webkit-border-bottom-left-radius: $rad;
+    -moz-border-radius-bottomright: $rad;
+    -moz-border-radius-bottomleft: $rad;
+    border-bottom-right-radius: $rad;
+    border-bottom-left-radius: $rad;
+}
+
+@mixin box-shadow($horizontal, $vertical, $blur, $spread, $color) {
+    -webkit-box-shadow: $horizontal $vertical $blur $spread $color;
+    -moz-box-shadow: $horizontal $vertical $blur $spread $color;
+    -o-box-shadow: $horizontal $vertical $blur $spread $color;
+    box-shadow: $horizontal $vertical $blur $spread $color;
+}
+
+@mixin box-shadow-inset($horizontal, $vertical, $blur, $spread, $color) {
+    -webkit-box-shadow: $horizontal $vertical $blur $spread $color inset;
+    -moz-box-shadow: $horizontal $vertical $blur $spread $color inset;
+    -o-box-shadow: $horizontal $vertical $blur $spread $color inset;
+    box-shadow: $horizontal $vertical $blur $spread $color inset;
+}
+
+@mixin linear-gradient($top-color, $bottom-color) {
+    background: -webkit-linear-gradient($top-color, $bottom-color);
+    background: -moz-linear-gradient($top-color, $bottom-color);
+    background: -ms-linear-gradient($top-color, $bottom-color);
+    background: -o-linear-gradient($top-color, $bottom-color);
+    background: linear-gradient($top-color, $bottom-color);
+    background-color: $bottom-color;
+}

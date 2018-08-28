@@ -12,11 +12,10 @@ var UserModelSchema = new Schema({
         unique: true,
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
-    password: {type: String, reuqired: true},
-    superAdmin: {type: Boolean, reuqired: true},
-    groups: [{
-        name: {type: String, reuqired: true},
-    }]
+    password: {type: String, required: true},
+    superAdmin: {type: Boolean, required: true},
+    groupAdmin: {type: Boolean, required: true},
+    channels: [{type: mongoose.Schema.Types.ObjectId, ref: 'Channel'}]
 });
 
 module.exports = mongoose.model('User', UserModelSchema);
