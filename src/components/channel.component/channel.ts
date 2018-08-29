@@ -10,12 +10,12 @@ import {NgForm, FormGroup, FormControl, Validators} from '@angular/forms'
 import {OpenSnackBarService} from "../../services/openSnackbar.service";
 
 @Component({
-    selector: 'chatGroups',
-    templateUrl: 'groups.html',
-    styleUrls: ['groups.scss']
+    selector: 'channel',
+    templateUrl: 'channel.html',
+    styleUrls: ['channel.scss']
 })
 
-export class GroupsComponent implements OnInit, OnDestroy {
+export class ChannelComponent implements OnInit, OnDestroy {
     constructor(private router: Router,
                 public loaderService: LoaderService,
                 public location: Location,

@@ -14,7 +14,7 @@ var UserModelSchema = new Schema({
     },
     password: {type: String, required: true},
     superAdmin: {type: Boolean, required: true},
-    groupAdmin: {type: Boolean, required: true},
+    groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}],
     channels: [{type: mongoose.Schema.Types.ObjectId, ref: 'Channel'}]
 });
 

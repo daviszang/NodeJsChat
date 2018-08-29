@@ -1,7 +1,7 @@
 import {Routes, RouterModule} from '@angular/router';
 import {LoginComponent} from '../components/login.component/login';
 import {HomeComponent} from '../components/home.component/home';
-import {ChatComponent} from '../components/chat.component/chat';
+import {ChannelComponent} from '../components/channel.component/channel';
 import {GroupsComponent} from "../components/groups.component/groups";
 
 const appRoutes: Routes = [
@@ -18,8 +18,8 @@ const appRoutes: Routes = [
                 component: GroupsComponent
             },
             {
-                path: "groups/:group",
-                component: ChatComponent,
+                path: "groups/:channel",
+                component: ChannelComponent,
             },
             {
                 path: '',

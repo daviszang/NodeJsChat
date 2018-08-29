@@ -3,17 +3,16 @@
 const User = require('../models/user');
 
 const mongoose = require('mongoose');
-const localDB = 'localhost:27017/nodechat';
+const localDB = 'mongodb://localhost:27017/project1';
 mongoose.connect(localDB);
 
 const users = [
     new User({
-        username: 'admin',
-        email: 'admin@123.com',
-        password: '1234',
-        superAdmin: true,
-        groupAdmin: true,
-        channels: []
+        _id: "5b85da8962877b6963c3b30f",
+        username: "admin",
+        email: "admin@123.com",
+        channels: [],
+        groups: []
     })
 ];
 

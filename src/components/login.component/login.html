@@ -1,0 +1,26 @@
+<div class="loginWrapper">
+
+    <form novalidate name="loginForm" class="loginForm" #loginForm="ngForm" [formGroup]="loginFormGroup">
+        <mat-form-field class="row">
+            <input matInput name="username" class="loginTextBox" placeholder="Email address"
+                   [(ngModel)]="credentials.email" fo   rmControlName="username" autocomplete="off" required/>
+            <mat-error
+                    *ngIf="loginFormGroup.get('email').hasError('pattern') && !loginFormGroup.get('email').hasError('required')">
+                Email address is invalid
+            </mat-error>
+            <mat-error *ngIf="loginFormGroup.get('email').hasError('required')">Please enter email address
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="row">
+            <input matInput type="password" placeholder="Password" class="loginTextBox" name="password"
+                   [(ngModel)]="credentials.password" formControlName="password" required/>
+            <mat-error *ngIf="loginFormGroup.get('password').hasError('required')">Please enter password</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button class="signIn btn-primary" [disabled]="loginForm.invalid || submitted"
+                (click)="OnSubmit(loginForm)">Login
+        </button>
+
+    </form>
+
+</div>

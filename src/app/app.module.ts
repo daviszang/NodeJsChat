@@ -28,7 +28,7 @@ import {LoaderService} from '../services/loader.service';
 import {OpenSnackBarService} from '../services/openSnackbar.service';
 
 import {AppComponent} from './app.component';
-import {ChatComponent} from '../components/chat.component/chat';
+import {ChannelComponent} from '../components/channel.component/channel';
 import {LoginComponent} from '../components/login.component/login';
 import {HomeComponent} from '../components/home.component/home';
 import {LoaderComponent} from "../components/loader/loader";
@@ -41,7 +41,7 @@ import {GroupsComponent} from "../components/groups.component/groups";
         LoginComponent,
         HomeComponent,
         GroupsComponent,
-        ChatComponent,
+        ChannelComponent,
         LoaderComponent
     ],
     imports: [

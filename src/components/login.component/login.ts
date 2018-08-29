@@ -30,14 +30,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     public credentials: any;
     public loginFormGroup: FormGroup;
     public submitted: boolean;
+    private emailRegex: RegExp;
     private subscriptions: Subscription = new Subscription();
 
     ngOnInit(): void {
-
+        this.credentials = {email: "", password: ""};
+        this.emailRegex = new RegExp("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$");
         this.submitted = false;
 
         this.loginFormGroup = new FormGroup({
             email: new FormControl("", [
+                Validators.pattern(this.emailRegex),
                 Validators.required
             ]),
             password: new FormControl("", [
@@ -70,7 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     this.loaderService.isLoading(false);
 
                     if (res) {
-                        localStorage.setItem("email", this.credentials["username"]);
+                        localStorage.setItem("username", res.json().username);
                         sessionStorage.setItem("token", res.json().token);
                         this.router.navigateByUrl('/home');
                     }
@@ -93,14 +96,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                 },
             );
         }
-    }
-
-    public ForgetAccess(): void {
-        this.router.navigateByUrl("/retrieve").then();
-    }
-
-    public SignUp(): void {
-        this.router.navigateByUrl("/signUp").then();
     }
 
 }

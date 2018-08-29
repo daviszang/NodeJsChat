@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, VERSION} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'app';
+    constructor() {
+        console.log("Angular Version: ", VERSION.full);
+    }
 }

@@ -47,8 +47,8 @@ export class AuthenticationService {
 
     constructor(public http: Http, public platformLocation: PlatformLocation) {
         this.baseURL = window.document.location.origin + this.platformLocation.getBaseHrefFromDOM();
-        this._Login = this.baseURL + "/login";
-        this._Signup = "";
+        this._Login = this.baseURL + "/api/login";
+        this._Signup = this.baseURL + "/api/signup";
         this._fetchUser = "";
     }
 
