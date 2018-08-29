@@ -118,22 +118,45 @@ router.post('/login', (req, res, next) => {
 });
 
 
-/** Post group create new group */
-router.post("/groups", (req, res, next) => {
+/** delete user */
+
+router.delete("/user/:userId", (req, res, next) => {
+    User.remove({_id: req.params.userId})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: "User deleted"
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
+
+
+/** create new group */
+router.post("/groups/create", (req, res, next) => {
     const group = new Group({
         _id: new mongoose.Types.ObjectId(),
         groupName: req.body.name,
-        channels: []
+        admin: req.body.userId,
+        members: [req.body.userId]
     });
     group.save()
+        .populate('channels', '_id channelName')
+        .populate('members', '_id userName')
         .then(result => {
             console.log(result);
             res.status(201).json({
                 message: "Created group successfully",
                 createdGroup: {
-                    groupName: result.name,
+                    groupName: result.groupName,
                     _id: result._id,
-                    channels: result.channels
+                    admin: result.admin,
+                    members: result.members
                 }
             });
         })
@@ -151,7 +174,7 @@ router.get('/groups/:groupId', (req, res, next) => {
     const id = req.params.groupId;
     Group.findById(id)
         .select('groupName channels _id')
-        .populate('channels', 'channelName')
+        .populate('members', 'username _id')
         .exec()
         .then(doc => {
             console.log("From database", doc);
@@ -171,10 +194,63 @@ router.get('/groups/:groupId', (req, res, next) => {
         });
 });
 
+/** update groups members*/
+
+router.post("/groups/update", (req, res, next) => {
+    const userId = req.body.userId;
+    const groupId = req.body.groupId;
+    Group.update({_id: groupId}, {$push: {'members': {'_id': userId}}})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'group members update',
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    User.update({_id: userId}, {$push: {'groups': {'_id': groupId}}})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'User groups update',
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
+
+/** update group admin*/
+
+router.post("/groups/update", (req, res, next) => {
+    const userId = req.body.userId;
+    const groupId = req.body.groupId;
+    Group.update({_id: groupId}, {$set: {'admin': {'_id': userId}}})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'group admin update',
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
+
 /** Delete group by id */
 
-router.delete("/groups/:groupId", (req, res, next) => {
-    const id = req.params.groupId;
+router.delete("/groups/delete", (req, res, next) => {
+    const id = req.body.groupId;
     Group.remove({_id: id})
         .exec()
         .then(result => {
@@ -191,16 +267,16 @@ router.delete("/groups/:groupId", (req, res, next) => {
 });
 
 
-/** Post new user */
+/** create new user */
 
-router.post('/channel/createUser', (req, res, next) => {
+router.post('/user/create', (req, res, next) => {
     User.find({username: req.body.username})
         .populate('channels', 'channelName')
         .exec()
         .then(user => {
             if (user.length >= 1) {
                 return res.status(409).json({
-                    message: "username exists"
+                    message: "user name exists"
                 });
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -213,17 +289,16 @@ router.post('/channel/createUser', (req, res, next) => {
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
                             username: req.body.username,
-                            groupAdmin: req.body.groupAdmin,
-                            superAdmin: req.body.superAdmin,
+                            superAdmin: false,
                             password: hash,
-                            channels: [req.body.channel]
+                            groups: [req.body.groupId],
+                            channels: [req.body.channelId]
                         });
-                        user
-                            .save()
+                        user.save()
                             .then(result => {
-                                console.log(result);
                                 res.status(201).json({
-                                    message: "User created"
+                                    message: "User created",
+                                    userInfo: result
                                 });
                             })
                             .catch(err => {
@@ -241,13 +316,14 @@ router.post('/channel/createUser', (req, res, next) => {
 
 /** Delete user from channel*/
 
-router.post("/channel/:userId", (req, res, next) => {
-    const id = req.params.userId;
-    Channel.update({_id: id}, {$pull: {'members': {'_id': req.params.userId}}})
+router.post("/channel/delete", (req, res, next) => {
+    const channelId = req.body.channelId;
+    const userId = req.body.userId;
+    Channel.update({_id: channelId}, {$pull: {'members': {'_id': userId}}})
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'User deleted',
+                message: 'User has been removed from channel',
             });
         })
         .catch(err => {
@@ -256,11 +332,11 @@ router.post("/channel/:userId", (req, res, next) => {
                 error: err
             });
         });
-    User.update({_id: id}, {$pull: {'': {'_id': req.params.userId}}})
+    User.update({_id: userId}, {$pull: {'channels': {'_id': channelId}}})
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'User deleted',
+                message: 'channel has been removed from user',
             });
         })
         .catch(err => {
@@ -272,17 +348,17 @@ router.post("/channel/:userId", (req, res, next) => {
 });
 
 
-/**Post channel create new channel*/
+/** create new channel*/
 
-router.post("/channel", (req, res, next) => {
+router.post("/channel/create", (req, res, next) => {
     const channel = new Channel({
         _id: new mongoose.Types.ObjectId(),
         group: req.body.group,
+        channelName: req.body.channelName,
         members: [],
         conversation: []
     });
-    channel
-        .save()
+    channel.save()
         .then(result => {
             console.log(result);
             res.status(201).json({

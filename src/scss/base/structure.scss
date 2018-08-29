@@ -33,7 +33,6 @@ button {
     border: 1px solid;
     box-shadow: none !important;
     color: $chat-white;
-    font-family: Tele-Grotesk-Fet, Verdana, sans-serif;
     &:disabled {
       background-color: $chat-mid-grey !important;
       border: 1px solid $chat-mid-grey;
@@ -44,9 +43,9 @@ button {
   &.btn-primary:not(:disabled) {
     font-size: 1em;
     font-weight: 300;
-    background: $chat-magenta;
+    background: $chat-navy;
     &:hover {
-      color: $chat-magenta;
+      color: $chat-navy;
       background: $chat-white;
     }
   }
@@ -55,9 +54,9 @@ button {
     font-size: 1em;
     font-weight: 300;
     background: $chat-black;
-    border: 1px solid $chat-magenta;
+    border: 1px solid $chat-navy;
     &:hover {
-      color: $chat-magenta;
+      color: $chat-navy;
       background: $chat-white;
     }
   }
@@ -66,10 +65,10 @@ button {
     font-size: 1em;
     font-weight: 300;
     background: $chat-white;
-    color: $chat-magenta;
+    color: $chat-navy;
     &:hover {
       color: $chat-white;
-      background: $chat-magenta;
+      background: $chat-navy;
     }
   }
 }
