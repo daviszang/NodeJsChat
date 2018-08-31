@@ -1,0 +1,19 @@
+@import "../../scss/dependencies/helpers.scss";
+@import "../../scss/dependencies/variables.scss";
+
+.addWrapper {
+  padding: 2em 3em;
+  display: flex;
+  flex-direction: column;
+  h3 {
+    color: $chat-dark-navy;
+  }
+  .addForm {
+    width: 30%;
+    margin: 2em 0;
+    button {
+      margin: 1em 0;
+    }
+  }
+
+}

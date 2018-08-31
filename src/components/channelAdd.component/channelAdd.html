@@ -1,0 +1,29 @@
+<div class="addWrapper">
+    <h3>Add new channel</h3>
+    <form novalidate name="addForm" class="addForm" #addForm="ngForm" [formGroup]="addFormGroup">
+
+        <mat-form-field class="row">
+            <input matInput name="channelName" class="loginTextBox" placeholder="Channel Name"
+                   [(ngModel)]="channelName" formControlName="groupName" autocomplete="off" required/>
+            <mat-error *ngIf="addFormGroup.get('channelName').hasError('required')">Please enter channel name
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="row">
+            <mat-select name="selectGroup" class="loginTextBox" placeholder="Select Group"
+                        [(ngModel)]="selectGroup" formControlName="selectGroup" autocomplete="off" required>
+                <mat-option *ngFor="let group of groups" [value]="group._id">
+                    {{group.groupName}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addFormGroup.get('selectGroup').hasError('required')">Please select a group
+            </mat-error>
+        </mat-form-field>
+
+
+        <button mat-raised-button class="signIn btn-primary" [disabled]="addForm.invalid || submitted"
+                (click)="SubmitChannel(addForm)">create
+        </button>
+
+    </form>
+</div>

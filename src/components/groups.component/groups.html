@@ -1,13 +1,93 @@
 <div class="groupWrapper">
-    <div class="title">{{groupInfo.groupName}}</div>
-    <div class="subtitle">
-        {{groupInfo.admin.username}}
+    <div class="header">
+        <h3>{{groupInfo.groupName}}</h3>
     </div>
     <div class="cards">
-        <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddUser()"></i>
+        <div class="subtitle">
+            Admin:
+        </div>
+        <div class="card">
+            <span>{{groupInfo.admin.username}}</span>
+            <span *ngIf="CheckAdmin()" (click)="EditAdmin()"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+        </div>
+        <div class="subtitle">
+            members: <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddUser()" *ngIf="CheckAdmin()"></i>
+        </div>
         <div class="card" *ngFor="let member of groupInfo.members">
             <span>{{member.username}}</span>
+            <span>{{member._id}}</span>
             <span *ngIf="CheckAdmin()" (click)="DeleteUser(member._id)">X</span>
         </div>
+
+        <button mat-raised-button class="signIn btn-primary" *ngIf="CheckAdmin()"
+                (click)="DeleteGroup()">Delete Group</button>
     </div>
+
+    <form novalidate name="addForm" class="addForm" #addForm="ngForm" [formGroup]="addFormGroup" *ngIf="addUser">
+        <div class="subtitle">
+            Create New Member
+        </div>
+        <mat-form-field class="row">
+            <input matInput name="username" class="loginTextBox" placeholder="Username"
+                   [(ngModel)]="credentials.username" formControlName="username" autocomplete="off" required/>
+            <mat-error *ngIf="addFormGroup.get('username').hasError('required')">Please enter username
+            </mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field class="row">
+            <input matInput name="email" class="loginTextBox" placeholder="Email"
+                   [(ngModel)]="credentials.email" formControlName="email" autocomplete="off" required/>
+            <mat-error
+                    *ngIf="addFormGroup.get('email').hasError('pattern') && !addFormGroup.get('email').hasError('required')">
+                Invalid email address
+            </mat-error>
+            <mat-error *ngIf="addFormGroup.get('email').hasError('required')">Please enter username
+            </mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field class="row">
+            <input matInput type="password" placeholder="Password" class="loginTextBox" name="password"
+                   [(ngModel)]="credentials.password" formControlName="password" required/>
+            <mat-error *ngIf="addFormGroup.get('password').hasError('required')">Please enter password</mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <button mat-raised-button class="signIn btn-primary" [disabled]="addForm.invalid || submitted"
+                (click)="CreateUser(addForm)">create
+        </button>
+
+        <button mat-raised-button class="signIn btn-primary" (click)="Cancel('user')">cancel</button>
+
+    </form>
+
+    <form novalidate name="updateForm" class="addForm" #updateForm="ngForm" [formGroup]="updateFormGroup" *ngIf="editAdmin">
+        <div class="subtitle">
+            Update Group Admin
+        </div>
+        <mat-form-field class="row">
+            <mat-select name="selectGroup" class="loginTextBox" placeholder="New Admin"
+                        [(ngModel)]="selectUser" formControlName="selectUser" autocomplete="off" required>
+                <mat-option *ngFor="let member of members" [value]="member._id">
+                    {{member.username}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="updateFormGroup.get('selectUser').hasError('required')">Please select a user from group
+            </mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <button mat-raised-button class="signIn btn-primary" [disabled]="updateForm.invalid || submitted"
+                (click)="UpdateAdmin(updateForm)">create
+        </button>
+
+        <button mat-raised-button class="signIn btn-primary" (click)="Cancel('admin')">cancel</button>
+
+    </form>
+
 </div>

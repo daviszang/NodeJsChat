@@ -8,20 +8,18 @@
         <ul class="menu">
             <li class="title">
                 <span>Group</span>
+                <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddGroup()"></i>
             </li>
-            <li class="menuItem" *ngFor="let group of userInfo.groups">
-                <a class="white" routerLink="/home/group/{{group._id}}">
-                    &bull;&nbsp;&nbsp;
-                    <span>{{group.groupName}}</span>
-                </a>
+            <li class="menuItem" *ngFor="let group of userInfo.groups" (click)="GroupDirect(group._id)">
+                &bull;&nbsp;&nbsp;
+                <span>{{group.groupName}}</span>
             </li>
             <li class="title">
                 <span>Channel</span>
+                <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddChannel()"></i>
             </li>
-            <li class="menuItem" *ngFor="let channel of userInfo.channels">
-                <a class="white" routerLink="/home/channel/{{channel._id}}">
-                    #&nbsp;&nbsp;<span>{{channel.channelName}}</span>
-                </a>
+            <li class="menuItem" *ngFor="let channel of userInfo.channels" (click)="ChannelDirect(channel._id)">
+                #&nbsp;&nbsp;<span>{{channel.channelName}}</span>
             </li>
             <li class="menuItem" (click)="Logout()">
                 <span>Log out</span>

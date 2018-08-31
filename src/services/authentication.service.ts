@@ -22,9 +22,13 @@ export class AuthenticationService {
 
     private _FetchUser: string;
     private _FetchGroup: string;
+    private _CreateGroup: string;
+    private _DeleteGroup: string;
     private _FetchChannel: string;
+    private _CreateChannel: string;
     private _DeleteUser: string;
     private _CreateUser: string;
+    private _UpdateAdmin: string;
     private _Login: string;
     private _Signup: string;
     private _Logout: string;
@@ -62,8 +66,24 @@ export class AuthenticationService {
         return this._FetchGroup
     }
 
+    get CreateGroup() {
+        return this._CreateGroup
+    }
+
+    get DeleteGroup() {
+        return this._DeleteGroup
+    }
+
+    get UpdateAdmin() {
+        return this._UpdateAdmin
+    }
+
     get FetchChannel() {
         return this._FetchChannel
+    }
+
+    get CreateChannel() {
+        return this._CreateChannel
     }
 
     constructor(public http: Http, public platformLocation: PlatformLocation) {
@@ -74,8 +94,12 @@ export class AuthenticationService {
         this._FetchUser = this.baseURL + "/api/user/";
         this._FetchGroup = this.baseURL + "/api/groups/";
         this._FetchChannel = this.baseURL + "/api/channel/";
-        this._DeleteUser = this.baseURL+"/api/user/";
-        this._CreateUser =this.baseURL+"/api/user/create"
+        this._DeleteUser = this.baseURL + "/api/user/";
+        this._CreateUser = this.baseURL + "/api/user/create";
+        this._CreateGroup = this.baseURL + "/api/groups/create";
+        this._CreateChannel = this.baseURL + "/api/channel/create";
+        this._UpdateAdmin = this.baseURL + "/api/groups/update";
+        this._DeleteGroup = this.baseURL + "/api/groups/"
     }
 
     /* Security GET with header */

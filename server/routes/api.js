@@ -97,6 +97,7 @@ router.post('/login', (req, res, next) => {
                         message: "Auth successful",
                         userInfo: {
                             userId: user[0]._id,
+                            email: user[0].email,
                             username: user[0].username,
                             superAdmin: user[0].superAdmin,
                             channels: user[0].channels,

@@ -1,0 +1,40 @@
+@import "../../scss/dependencies/helpers.scss";
+@import "../../scss/dependencies/variables.scss";
+
+.groupWrapper {
+  .subtitle {
+    font-size: 1em;
+    font-weight: bolder;
+    color: $chat-light-navy;
+    margin: 1em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .header {
+    background: $chat-mid-grey;
+    padding: 1.5em 2em;
+    h3 {
+      color: $chat-light-navy;
+    }
+  }
+  .cards {
+    padding: 2em 3em;
+    .card {
+      border-top: 1px solid $chat-mid-grey;
+      background: $chat-light-grey;
+      padding: .5em 1em;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    button {
+      float: right;
+      margin: 1em 0;
+    }
+  }
+  .addForm {
+    width: 50%;
+    padding: 2em 3em;
+  }
+}

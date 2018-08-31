@@ -1,0 +1,17 @@
+<div class="addWrapper">
+    <h3>Add new group</h3>
+    <form novalidate name="addForm" class="addForm" #addForm="ngForm" [formGroup]="addFormGroup">
+
+        <mat-form-field class="row">
+            <input matInput name="groupName" class="loginTextBox" placeholder="Group Name"
+                   [(ngModel)]="groupName" formControlName="groupName" autocomplete="off" required/>
+            <mat-error *ngIf="addFormGroup.get('groupName').hasError('required')">Please enter group name
+            </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button class="signIn btn-primary" [disabled]="addForm.invalid || submitted"
+                (click)="SubmitGroup(addForm)">create
+        </button>
+
+    </form>
+</div>

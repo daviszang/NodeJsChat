@@ -27,11 +27,64 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
     public submitted: boolean;
     public groupInfo: any;
+    public addUser: boolean;
+    public editAdmin: boolean;
+    public credentials: any;
+    public selectUser: string;
+    public members: any[];
+    public emailRegex: RegExp;
+    public addFormGroup: FormGroup;
+    public updateFormGroup: FormGroup;
     private subscriptions: Subscription = new Subscription();
 
     ngOnInit(): void {
+        this.emailRegex = new RegExp("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$");
+        this.credentials = {username: "", password: "", email: ""};
+        this.selectUser = '';
+
+        this.addFormGroup = new FormGroup({
+            username: new FormControl("", [
+                Validators.required
+            ]),
+            email: new FormControl("", [
+                Validators.required,
+                Validators.pattern(this.emailRegex)
+            ]),
+            password: new FormControl("", [
+                Validators.required
+            ])
+        });
+
+        this.updateFormGroup = new FormGroup({
+            selectUser: new FormControl("", [
+                Validators.required
+            ])
+        });
+
+        this.addUser = false;
         this.submitted = false;
-        this.FetchGroup()
+        this.editAdmin = false;
+        this.groupInfo = {
+            "members": [
+                {
+                    "_id": "5b883000b670329cee6f758f",
+                    "username": "super"
+                },
+                {
+                    "_id": "5b88305ab670329cee6f7593",
+                    "username": "admin"
+                }
+            ],
+            "_id": "5b88302ab670329cee6f7590",
+            "groupName": "group0",
+            "admin": {
+                "_id": "5b883000b670329cee6f758f",
+                "username": "super"
+            }
+        };
+        /* this.FetchGroup()*/
+
+        this.members = this.groupInfo.members;
     }
 
     ngOnDestroy(): void {
@@ -49,6 +102,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
                         this.loaderService.isLoading(false);
                         this.subscriptions.add(sub);
                         this.groupInfo = res.json().group;
+                        this.members = this.groupInfo.members;
                     },
                     (error: any) => {
                         this.loaderService.isLoading(false);
@@ -68,7 +122,79 @@ export class GroupsComponent implements OnInit, OnDestroy {
     }
 
     public AddUser(): void {
+        this.addUser = true;
+    }
 
+    public EditAdmin(): void {
+        this.editAdmin = true;
+    }
+
+    public Cancel(option): void {
+        if (option == 'user') {
+            this.addUser = false;
+        } else {
+            this.editAdmin = false;
+        }
+    }
+
+    public UpdateAdmin(updateForm: NgForm): void {
+        if (updateForm.valid && !this.submitted) {
+            this.submitted = true;
+            this.loaderService.isLoading(true);
+            let body = {
+                email: this.credentials["email"],
+                password: this.credentials["password"],
+                username: this.credentials["username"],
+                groupId: this.groupInfo._id
+            };
+            let sub = this.authService.SecurityAJAXPost(this.authService.UpdateAdmin, body)
+                .subscribe(
+                    (res: any) => {
+                        this.submitted = false;
+                        this.loaderService.isLoading(false);
+                        this.subscriptions.add(sub);
+                        this.snackBarService.OpenTopSnackBar("alert", 3000, 'Update Successfully');
+                        this.FetchGroup()
+                    },
+                    (error: any) => {
+                        this.submitted = false;
+                        this.loaderService.isLoading(false);
+                        this.subscriptions.add(sub);
+                        console.log("update fail:", error.status);
+                        this.snackBarService.OpenTopSnackBar("alert", 3000, 'Fail to update, please try again');
+                    }
+                );
+        }
+    }
+
+    public CreateUser(addForm: NgForm): void {
+        if (addForm.valid && !this.submitted) {
+            this.submitted = true;
+            this.loaderService.isLoading(true);
+            let body = {
+                email: this.credentials["email"],
+                password: this.credentials["password"],
+                username: this.credentials["username"],
+                groupId: this.groupInfo._id
+            };
+            let sub = this.authService.SecurityAJAXPost(this.authService.CreateUser, body)
+                .subscribe(
+                    (res: any) => {
+                        this.submitted = false;
+                        this.loaderService.isLoading(false);
+                        this.subscriptions.add(sub);
+                        this.snackBarService.OpenTopSnackBar("alert", 3000, 'Create Successfully');
+                        this.FetchGroup()
+                    },
+                    (error: any) => {
+                        this.submitted = false;
+                        this.loaderService.isLoading(false);
+                        this.subscriptions.add(sub);
+                        console.log("add fail:", error.status);
+                        this.snackBarService.OpenTopSnackBar("alert", 3000, 'Fail to create, please try again');
+                    }
+                );
+        }
     }
 
     public DeleteUser(userId): void {
@@ -80,6 +206,25 @@ export class GroupsComponent implements OnInit, OnDestroy {
                     this.subscriptions.add(sub);
                     this.snackBarService.OpenTopSnackBar("alert", 3000, 'Delete Successfully');
                     this.FetchGroup()
+                },
+                (error: any) => {
+                    this.loaderService.isLoading(false);
+                    this.subscriptions.add(sub);
+                    console.log("delete fail:", error.status);
+                    this.snackBarService.OpenTopSnackBar("alert", 3000, 'Fail to delete, please try again');
+                }
+            );
+    }
+
+    public DeleteGroup(): void {
+        let groupId = this.groupInfo._id;
+        let sub = this.authService.SecurityAJAXDelete(this.authService.DeleteGroup + groupId)
+            .subscribe(
+                (res: any) => {
+                    this.loaderService.isLoading(false);
+                    this.subscriptions.add(sub);
+                    this.snackBarService.OpenTopSnackBar("alert", 3000, 'Delete Successfully');
+                    this.router.navigateByUrl('/home');
                 },
                 (error: any) => {
                     this.loaderService.isLoading(false);

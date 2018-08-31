@@ -26,6 +26,7 @@ import {routing} from './app.routing';
 import {AuthenticationService} from '../services/authentication.service';
 import {LoaderService} from '../services/loader.service';
 import {OpenSnackBarService} from '../services/openSnackbar.service';
+import {UserDataService} from "../services/data.service";
 
 import {AppComponent} from './app.component';
 import {ChannelComponent} from '../components/channel.component/channel';
@@ -33,6 +34,8 @@ import {LoginComponent} from '../components/login.component/login';
 import {HomeComponent} from '../components/home.component/home';
 import {LoaderComponent} from "../components/loader/loader";
 import {GroupsComponent} from "../components/groups.component/groups";
+import {ChannelAddComponent} from "../components/channelAdd.component/channelAdd";
+import {GroupAddComponent} from "../components/groupAdd.component/groupAdd";
 
 
 @NgModule({
@@ -41,7 +44,9 @@ import {GroupsComponent} from "../components/groups.component/groups";
         LoginComponent,
         HomeComponent,
         GroupsComponent,
+        GroupAddComponent,
         ChannelComponent,
+        ChannelAddComponent,
         LoaderComponent
     ],
     imports: [
@@ -72,7 +77,8 @@ import {GroupsComponent} from "../components/groups.component/groups";
     providers: [
         AuthenticationService,
         LoaderService,
-        OpenSnackBarService
+        OpenSnackBarService,
+        UserDataService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

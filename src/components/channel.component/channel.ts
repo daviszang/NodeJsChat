@@ -62,12 +62,4 @@ export class ChannelComponent implements OnInit, OnDestroy {
         }
     }
 
-    public ForgetAccess(): void {
-        this.router.navigateByUrl("/retrieve").then();
-    }
-
-    public SignUp(): void {
-        this.router.navigateByUrl("/signUp").then();
-    }
-
 }
