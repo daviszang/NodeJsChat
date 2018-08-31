@@ -1,0 +1,34 @@
+<div class="homeWrapper">
+    <div class="sidebar">
+        <div class="card">
+            <img class="md-user-avatar" src="assets/images/Profile.png"/>
+            <span class="subtitle">{{userInfo.username}}</span>
+            <span class="subhead">{{userInfo.email}}</span>
+        </div>
+        <ul class="menu">
+            <li class="title">
+                <span>Group</span>
+            </li>
+            <li class="menuItem" *ngFor="let group of userInfo.groups">
+                <a class="white" routerLink="/home/group/{{group._id}}">
+                    &bull;&nbsp;&nbsp;
+                    <span>{{group.groupName}}</span>
+                </a>
+            </li>
+            <li class="title">
+                <span>Channel</span>
+            </li>
+            <li class="menuItem" *ngFor="let channel of userInfo.channels">
+                <a class="white" routerLink="/home/channel/{{channel._id}}">
+                    #&nbsp;&nbsp;<span>{{channel.channelName}}</span>
+                </a>
+            </li>
+            <li class="menuItem" (click)="Logout()">
+                <span>Log out</span>
+            </li>
+        </ul>
+    </div>
+    <div class="mainContent">
+        <router-outlet></router-outlet>
+    </div>
+</div>

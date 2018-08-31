@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var UserModelSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    username: {type: String, reuqired: true, unique: true},
+    username: {type: String, required: true, unique: true},
     email: {
         type: String,
         required: true,

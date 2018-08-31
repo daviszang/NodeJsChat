@@ -34,13 +34,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription = new Subscription();
 
     ngOnInit(): void {
-        this.credentials = {email: "", password: ""};
+        this.credentials = {username: "", password: ""};
         this.emailRegex = new RegExp("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$");
         this.submitted = false;
 
         this.loginFormGroup = new FormGroup({
-            email: new FormControl("", [
-                Validators.pattern(this.emailRegex),
+            username: new FormControl("", [
                 Validators.required
             ]),
             password: new FormControl("", [
@@ -61,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.loaderService.isLoading(true);
 
             let body = {
-                email: this.credentials["email"],
+                username: this.credentials["username"],
                 password: this.credentials["password"]
             };
 
@@ -74,7 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
                     if (res) {
                         localStorage.setItem("username", res.json().username);
-                        sessionStorage.setItem("token", res.json().token);
+                        localStorage.setItem("userId", res.json().userId);
                         this.router.navigateByUrl('/home');
                     }
                     else {
@@ -89,8 +88,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                     this.credentials["password"] = "";
                     if (error.status === 401)
                         this.snackBarService.OpenTopSnackBar("alert", 3000, INCORRECT_CREDENTIAL);
-                    else if (error.status === 403)
-                        this.router.navigateByUrl("/locked").then();
                     else
                         this.snackBarService.OpenTopSnackBar("alert", 3000, SERVICE_FAIL);
                 },

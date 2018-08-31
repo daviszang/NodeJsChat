@@ -1,0 +1,77 @@
+@import "../../scss/dependencies/helpers.scss";
+@import "../../scss/dependencies/variables.scss";
+
+.homeWrapper {
+  @include box-sizing(border-box);
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  .sidebar {
+    @include box-sizing(border-box);
+    position: absolute;
+    z-index: 4;
+    width: 20%;
+    height: calc(100vh);
+    top: 0;
+    left: 0;
+    background: $chat-light-navy;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .card {
+      padding: 1.5em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      img {
+        border-radius: 50%;
+        height: 2.5em;
+        width: 2.5em;
+      }
+      span {
+        color: $chat-white-grey;
+        margin: .2em 0;
+        &.subtitle {
+          margin-top: .5em;
+          font-size: 1.2em;
+          font-weight: 500;
+        }
+        &.subhead {
+          font-size: .8em;
+        }
+      }
+    }
+    .menu {
+      margin-top: 1.5em;
+      padding: 0;
+      li {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 1em 2.5em;
+        color: $chat-mid-grey;
+        &.menuItem {
+          &:hover {
+            cursor: pointer;
+            color: $chat-white;
+            background: $chat-white-navy;
+          }
+        }
+        &.title {
+          color: $chat-white
+        }
+      }
+    }
+  }
+  .mainContent {
+    @include box-sizing(border-box);
+    flex: 1;
+    position: relative;
+    width: 80%;
+    left: 20%;
+    z-index: 2;
+  }
+
+}

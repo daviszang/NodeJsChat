@@ -1,0 +1,13 @@
+<div class="groupWrapper">
+    <div class="title">{{groupInfo.groupName}}</div>
+    <div class="subtitle">
+        {{groupInfo.admin.username}}
+    </div>
+    <div class="cards">
+        <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddUser()"></i>
+        <div class="card" *ngFor="let member of groupInfo.members">
+            <span>{{member.username}}</span>
+            <span *ngIf="CheckAdmin()" (click)="DeleteUser(member._id)">X</span>
+        </div>
+    </div>
+</div>

@@ -17,12 +17,17 @@ const AUTH_TOKEN_PREFIX = "Bearer ";
 @Injectable()
 export class AuthenticationService {
     public baseURL: string;
+    public prodURL: string;
     public _token: string;
 
-    private _fetchUser: string;
+    private _FetchUser: string;
+    private _FetchGroup: string;
+    private _FetchChannel: string;
+    private _DeleteUser: string;
+    private _CreateUser: string;
     private _Login: string;
     private _Signup: string;
-    private _userLogout: string;
+    private _Logout: string;
 
 
     get Token() {
@@ -38,18 +43,39 @@ export class AuthenticationService {
     }
 
     get UserLogout() {
-        return this._userLogout
+        return this._Logout
     }
 
     get FetchUser() {
-        return this._fetchUser
+        return this._FetchUser
+    }
+
+    get CreateUser() {
+        return this._CreateUser
+    }
+
+    get DeleteUser() {
+        return this._DeleteUser
+    }
+
+    get FetchGroup() {
+        return this._FetchGroup
+    }
+
+    get FetchChannel() {
+        return this._FetchChannel
     }
 
     constructor(public http: Http, public platformLocation: PlatformLocation) {
+        this.prodURL = "localhost:5000";
         this.baseURL = window.document.location.origin + this.platformLocation.getBaseHrefFromDOM();
         this._Login = this.baseURL + "/api/login";
         this._Signup = this.baseURL + "/api/signup";
-        this._fetchUser = "";
+        this._FetchUser = this.baseURL + "/api/user/";
+        this._FetchGroup = this.baseURL + "/api/groups/";
+        this._FetchChannel = this.baseURL + "/api/channel/";
+        this._DeleteUser = this.baseURL+"/api/user/";
+        this._CreateUser =this.baseURL+"/api/user/create"
     }
 
     /* Security GET with header */

@@ -1,26 +1,31 @@
 <div class="loginWrapper">
+    <div class="loginArea">
+        <h1>Node Chat App</h1>
+        <form novalidate name="loginForm" class="loginForm" #loginForm="ngForm" [formGroup]="loginFormGroup">
+            <mat-form-field class="row">
+                <input matInput name="username" class="loginTextBox" placeholder="username"
+                       [(ngModel)]="credentials.username" formControlName="username" autocomplete="off" required/>
+                <mat-error *ngIf="loginFormGroup.get('username').hasError('required')">Please enter username
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="row">
+                <input matInput type="password" placeholder="Password" class="loginTextBox" name="password"
+                       [(ngModel)]="credentials.password" formControlName="password" required/>
+                <mat-error *ngIf="loginFormGroup.get('password').hasError('required')">Please enter password</mat-error>
+            </mat-form-field>
 
-    <form novalidate name="loginForm" class="loginForm" #loginForm="ngForm" [formGroup]="loginFormGroup">
-        <mat-form-field class="row">
-            <input matInput name="username" class="loginTextBox" placeholder="Email address"
-                   [(ngModel)]="credentials.email" formControlName="email" autocomplete="off" required/>
-            <mat-error
-                    *ngIf="loginFormGroup.get('email').hasError('pattern') && !loginFormGroup.get('email').hasError('required')">
-                Email address is invalid
-            </mat-error>
-            <mat-error *ngIf="loginFormGroup.get('email').hasError('required')">Please enter email address
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field class="row">
-            <input matInput type="password" placeholder="Password" class="loginTextBox" name="password"
-                   [(ngModel)]="credentials.password" formControlName="password" required/>
-            <mat-error *ngIf="loginFormGroup.get('password').hasError('required')">Please enter password</mat-error>
-        </mat-form-field>
+            <button mat-raised-button class="signIn btn-primary" [disabled]="loginForm.invalid || submitted"
+                    (click)="OnSubmit(loginForm)">Login
+            </button>
 
-        <button mat-raised-button class="signIn btn-primary" [disabled]="loginForm.invalid || submitted"
-                (click)="OnSubmit(loginForm)">Login
-        </button>
+        </form>
 
-    </form>
-
+        <div class="terms unselectable">
+            <a class="term" target="_blank">Terms of use</a>
+            <span class="delimiter">|</span>
+            <a class="term" target="_blank">Terms and conditions</a>
+            <span class="delimiter">|</span>
+            <a class="term">Privacy policy</a>
+        </div>
+    </div>
 </div>

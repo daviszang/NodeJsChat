@@ -14,11 +14,11 @@ const appRoutes: Routes = [
         component: HomeComponent,
         children: [
             {
-                path: "groups",
+                path: "group/:groupId",
                 component: GroupsComponent
             },
             {
-                path: "groups/:channel",
+                path: "channel/:channelId",
                 component: ChannelComponent,
             },
             {
