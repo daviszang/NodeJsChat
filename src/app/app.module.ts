@@ -36,6 +36,7 @@ import {LoaderComponent} from "../components/loader/loader";
 import {GroupsComponent} from "../components/groups.component/groups";
 import {ChannelAddComponent} from "../components/channelAdd.component/channelAdd";
 import {GroupAddComponent} from "../components/groupAdd.component/groupAdd";
+import {DialogComponent} from "../components/dialog/dialog";
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {GroupAddComponent} from "../components/groupAdd.component/groupAdd";
         GroupAddComponent,
         ChannelComponent,
         ChannelAddComponent,
-        LoaderComponent
+        LoaderComponent,
+        DialogComponent
     ],
     imports: [
         BrowserModule,
@@ -74,6 +76,7 @@ import {GroupAddComponent} from "../components/groupAdd.component/groupAdd";
         ReactiveFormsModule,
         routing,
     ],
+    entryComponents: [DialogComponent],
     providers: [
         AuthenticationService,
         LoaderService,

@@ -1,0 +1,26 @@
+<div class="dialogWrapper">
+  <div mat-dialog-title class="dialogTitle">Select User In Group</div>
+  <div mat-dialog-content class="dialogContent">
+    <form novalidate name="addForm" class="addForm" #addForm="ngForm" [formGroup]="addFormGroup">
+
+      <mat-form-field class="row">
+        <mat-select name="selectUser" class="loginTextBox" placeholder="Select User"
+                    [(ngModel)]="selectUser" formControlName="selectUser" autocomplete="off" required>
+          <mat-option *ngFor="let user of members" [value]="user._id">
+            {{user.username}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="addFormGroup.get('selectUser').hasError('required')">Please select a User
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </div>
+  <div mat-dialog-actions class="dialogButtons">
+    <button mat-raised-button class="btn-primary"
+            tabindex="-1" [disabled]="addForm.invalid"
+            (click)="AddUser()">Add To Channel</button>
+    <button mat-raised-button class="btn-primary" tabindex="-1" (click)="Cancel()">cancel</button>
+  </div>
+</div>
+

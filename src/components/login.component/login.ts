@@ -68,12 +68,11 @@ export class LoginComponent implements OnInit, OnDestroy {
                 (res: any) => {
                     this.subscriptions.add(sub);
                     this.submitted = false;
-                    this.authService._token = res.json().token;
                     this.loaderService.isLoading(false);
 
                     if (res) {
-                        localStorage.setItem("username", res.json().username);
-                        localStorage.setItem("userId", res.json().userId);
+                        localStorage.setItem("username", res.json().userInfo.username);
+                        localStorage.setItem("userId", res.json().userInfo.userId);
                         this.router.navigateByUrl('/home');
                     }
                     else {

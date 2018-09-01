@@ -1,0 +1,45 @@
+@import "../../scss/dependencies/helpers.scss";
+@import "../../scss/dependencies/variables.scss";
+
+.dialogWrapper {
+  background-color: $chat-white;
+  @include box-sizing(border-box);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 2em 3em;
+  justify-content: space-between;
+  .dialogTitle,
+  .dialogContent {
+    text-align: center;
+  }
+  .dialogTitle {
+    font-size: 1.2em;
+    color: $chat-light-navy;
+  }
+  .dialogContent {
+    padding: 0 1%;
+    color: $chat-dark-grey;
+    line-height: 1.25em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  /*style for pad and middle screen*/
+  @media only screen and (max-width: 886px) {
+    .dialogContent {
+      padding: 1em 0;
+      .contentPic {
+        display: none;
+      }
+    }
+    .dialogButtons {
+      width: 100%;
+    }
+
+  }
+}
+

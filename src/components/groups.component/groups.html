@@ -8,19 +8,22 @@
         </div>
         <div class="card">
             <span>{{groupInfo.admin.username}}</span>
-            <span *ngIf="CheckAdmin()" (click)="EditAdmin()"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+            <span *ngIf="isAdmin" (click)="EditAdmin()"><i class="fa fa-pencil" aria-hidden="true"></i></span>
         </div>
         <div class="subtitle">
-            members: <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddUser()" *ngIf="CheckAdmin()"></i>
+            members: <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddUser()" *ngIf="isAdmin"></i>
         </div>
         <div class="card" *ngFor="let member of groupInfo.members">
             <span>{{member.username}}</span>
             <span>{{member._id}}</span>
-            <span *ngIf="CheckAdmin()" (click)="DeleteUser(member._id)">X</span>
+            <span *ngIf="isAdmin" (click)="DeleteUser(member._id)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </span>
         </div>
 
-        <button mat-raised-button class="signIn btn-primary" *ngIf="CheckAdmin()"
-                (click)="DeleteGroup()">Delete Group</button>
+        <button mat-raised-button class="signIn btn-primary" *ngIf="isAdmin"
+                (click)="DeleteGroup()">Delete Group
+        </button>
     </div>
 
     <form novalidate name="addForm" class="addForm" #addForm="ngForm" [formGroup]="addFormGroup" *ngIf="addUser">
@@ -65,7 +68,8 @@
 
     </form>
 
-    <form novalidate name="updateForm" class="addForm" #updateForm="ngForm" [formGroup]="updateFormGroup" *ngIf="editAdmin">
+    <form novalidate name="updateForm" class="addForm" #updateForm="ngForm" [formGroup]="updateFormGroup"
+          *ngIf="editAdmin">
         <div class="subtitle">
             Update Group Admin
         </div>

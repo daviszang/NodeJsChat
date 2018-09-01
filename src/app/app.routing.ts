@@ -34,7 +34,7 @@ const appRoutes: Routes = [
             {
                 path: '',
                 pathMatch: 'full',
-                redirectTo: 'groups'
+                redirectTo: 'groups/new'
             }
         ]
     },

@@ -1,0 +1,57 @@
+@import "../../scss/dependencies/helpers.scss";
+@import "../../scss/dependencies/variables.scss";
+
+.channelWrapper {
+  .subtitle {
+    font-size: 1em;
+    font-weight: bolder;
+    color: $chat-light-navy;
+    margin: 1em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .header {
+    background: $chat-mid-grey;
+    padding: 1.5em 2em;
+    h3 {
+      color: $chat-light-navy;
+    }
+  }
+  .upperArea {
+    display: flex;
+    flex-direction: row;
+    .messageArea {
+      width: 70%;
+    }
+    .cards {
+      height: 70vh;
+      border-left: 1px solid $chat-navy;
+      width: 30%;
+      .subtitle {
+        padding: 0 1em;
+      }
+      .card {
+        border-top: 1px solid $chat-mid-grey;
+        background: $chat-light-grey;
+        padding: .5em 1em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      button {
+        float: right;
+        margin: 1em 0;
+      }
+    }
+  }
+  .inputArea {
+    width: 100%;
+    border-top: 1px solid $chat-navy;
+    textarea {
+      padding: 1em 2em;
+      height: 18vh;
+    }
+  }
+
+}

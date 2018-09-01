@@ -30,6 +30,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     public addUser: boolean;
     public editAdmin: boolean;
     public credentials: any;
+    public isAdmin: boolean
     public selectUser: string;
     public members: any[];
     public emailRegex: RegExp;
@@ -64,27 +65,14 @@ export class GroupsComponent implements OnInit, OnDestroy {
         this.addUser = false;
         this.submitted = false;
         this.editAdmin = false;
-        this.groupInfo = {
-            "members": [
-                {
-                    "_id": "5b883000b670329cee6f758f",
-                    "username": "super"
-                },
-                {
-                    "_id": "5b88305ab670329cee6f7593",
-                    "username": "admin"
-                }
-            ],
-            "_id": "5b88302ab670329cee6f7590",
-            "groupName": "group0",
-            "admin": {
-                "_id": "5b883000b670329cee6f758f",
-                "username": "super"
-            }
-        };
-        /* this.FetchGroup()*/
+        this.groupInfo = {};
+        this.isAdmin = false;
+
+        this.FetchGroup();
 
         this.members = this.groupInfo.members;
+
+        this.CheckAdmin();
     }
 
     ngOnDestroy(): void {
@@ -113,12 +101,14 @@ export class GroupsComponent implements OnInit, OnDestroy {
         })
     }
 
-    public CheckAdmin() {
+    public CheckAdmin(): void {
         let localuser = localStorage.getItem('userId');
-        if (localuser == this.groupInfo.admin._id)
-            return true;
-        else
-            return false
+        if (localuser == this.groupInfo.admin._id) {
+            this.isAdmin = true;
+        }
+        else {
+            this.isAdmin = false
+        }
     }
 
     public AddUser(): void {

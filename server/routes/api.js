@@ -394,9 +394,7 @@ router.post("/channel/add", (req, res, next) => {
     Channel.update({_id: channelId}, {$push: {members: {_id: userId}}})
         .exec()
         .then(result => {
-            res.status(200).json({
-                message: 'User has been added to channel',
-            });
+            console.log('channel has been added to user')
         })
         .catch(err => {
             console.log(err);
@@ -407,7 +405,9 @@ router.post("/channel/add", (req, res, next) => {
     User.update({_id: userId}, {$push: {channels: {_id: channelId}}})
         .exec()
         .then(result => {
-            console.log('channel has been added to user')
+            res.status(200).json({
+                message: 'User has been added to channel',
+            });
         })
         .catch(err => {
             console.log(err);
@@ -495,9 +495,10 @@ router.post("/channel/create", (req, res, next) => {
 /** GET channel by id */
 router.get('/channel/:channelId', (req, res, next) => {
     const id = req.params.channelId;
-    Group.findById(id)
-        .select('channelName members _id conversation')
+    Channel.findById(id)
+        .select('channelName members _id conversation group')
         .populate('members', '_id username')
+        .populate('group', 'admin')
         .exec()
         .then(doc => {
             console.log("From database", doc);

@@ -38,43 +38,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.submitted = false;
 
-        this.userInfo = {...this.data.getProfile};
-        this.userInfo = {
-            "groups": [
-                {
-                    "_id": "5b88302ab670329cee6f7590",
-                    "groupName": "group0"
-                },
-                {
-                    "_id": "5b88302eb670329cee6f7591",
-                    "groupName": "group1"
-                },
-                {
-                    "_id": "5b883033b670329cee6f7592",
-                    "groupName": "group2"
-                }
-            ],
-            "channels": [
-                {
-                    "_id": "5b8865a05f0b1caeb9622eae",
-                    "channelName": "channel1"
-                },
-                {
-                    "_id": "5b8865a65f0b1caeb9622eaf",
-                    "channelName": "channel2"
-                }
-            ],
-            "userId": "5b883000b670329cee6f758f",
-            "email": "super@123.com",
-            "username": "super",
-            "superAdmin": true
-        }
+        this.FetchUser();
 
-        /*this.FetchUser();*/
+        this.userInfo = {...this.data.getProfile};
+
     }
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe();
+    }
+
+    public ChckAdmin() {
+        return this.userInfo.superAdmin
     }
 
     public FetchUser(): void {
@@ -107,12 +82,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/home/channels/new')
     }
 
-    public GroupDirect(id):void{
-        this.router.navigateByUrl('/home/group/'+id)
+    public GroupDirect(id): void {
+        this.router.navigateByUrl('/home/group/' + id)
     }
 
-    public ChannelDirect(id):void{
-        this.router.navigateByUrl('/home/channel/'+id)
+    public ChannelDirect(id): void {
+        this.router.navigateByUrl('/home/channel/' + id)
     }
 
     public Logout(): void {

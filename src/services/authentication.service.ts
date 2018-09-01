@@ -29,6 +29,9 @@ export class AuthenticationService {
     private _DeleteUser: string;
     private _CreateUser: string;
     private _UpdateAdmin: string;
+    private _DeleteChannelUser: string;
+    private _DeleteChannel: string;
+    private _AddUserToChannel: string;
     private _Login: string;
     private _Signup: string;
     private _Logout: string;
@@ -86,20 +89,35 @@ export class AuthenticationService {
         return this._CreateChannel
     }
 
+    get AddUserToChannel() {
+        return this._AddUserToChannel
+    }
+
+    get DeleteChannelUser() {
+        return this._DeleteChannelUser
+    }
+
+    get DeleteChannel() {
+        return this._DeleteChannel
+    }
+
     constructor(public http: Http, public platformLocation: PlatformLocation) {
         this.prodURL = "localhost:5000";
         this.baseURL = window.document.location.origin + this.platformLocation.getBaseHrefFromDOM();
-        this._Login = this.baseURL + "/api/login";
-        this._Signup = this.baseURL + "/api/signup";
-        this._FetchUser = this.baseURL + "/api/user/";
-        this._FetchGroup = this.baseURL + "/api/groups/";
-        this._FetchChannel = this.baseURL + "/api/channel/";
-        this._DeleteUser = this.baseURL + "/api/user/";
-        this._CreateUser = this.baseURL + "/api/user/create";
-        this._CreateGroup = this.baseURL + "/api/groups/create";
-        this._CreateChannel = this.baseURL + "/api/channel/create";
-        this._UpdateAdmin = this.baseURL + "/api/groups/update";
-        this._DeleteGroup = this.baseURL + "/api/groups/"
+        this._Login = this.baseURL + "api/login";
+        this._Signup = this.baseURL + "api/signup";
+        this._FetchUser = this.baseURL + "api/user/";
+        this._FetchGroup = this.baseURL + "api/groups/";
+        this._FetchChannel = this.baseURL + "api/channel/";
+        this._DeleteUser = this.baseURL + "api/user/";
+        this._CreateUser = this.baseURL + "api/user/create";
+        this._CreateGroup = this.baseURL + "api/groups/create";
+        this._CreateChannel = this.baseURL + "api/channel/create";
+        this._UpdateAdmin = this.baseURL + "api/groups/update";
+        this._DeleteGroup = this.baseURL + "api/groups/";
+        this._DeleteChannelUser = this.baseURL + "api/channel/delete";
+        this._AddUserToChannel = this.baseURL + "api/channel/add";
+        this._DeleteChannel = this.baseURL+"api/channel/"
     }
 
     /* Security GET with header */
