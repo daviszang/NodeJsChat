@@ -11,6 +11,7 @@ import {NgForm, FormGroup, FormControl, Validators} from '@angular/forms'
 import {OpenSnackBarService} from "../../services/openSnackbar.service";
 import {DialogComponent} from '../dialog/dialog';
 import {UserDataService, User} from "../../services/data.service";
+import {HomeComponent} from '../home.component/home'
 
 
 @Component({
@@ -41,7 +42,13 @@ export class ChannelComponent implements OnInit, OnDestroy {
         this.isAdmin = false;
         this.members = [];
         this.submitted = false;
-        this.channelInfo = {};
+        this.channelInfo = {
+            members: [{_id: "", username: ""}],
+            _id: "",
+            group: {_id: "", admin: ""},
+            channelName: "",
+            conversation: []
+        };
         this.FetchChannel()
     }
 
@@ -71,12 +78,12 @@ export class ChannelComponent implements OnInit, OnDestroy {
         })
     }
 
-    public CheckAdmin(): void {
+    public CheckAdmin() {
         let localuser = localStorage.getItem('userId');
-        if (localuser == this.channelInfo.group._id) {
-            this.isAdmin = true
+        if (localuser == this.channelInfo.group.admin) {
+            return true
         } else {
-            this.isAdmin = false
+           return false
         }
     }
 
@@ -90,6 +97,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
                     this.loaderService.isLoading(false);
                     this.subscriptions.add(sub);
                     this.data.setProfile = {...res.json().userInfo};
+                    HomeComponent.updateUser.next(true);
                 },
                 (error: any) => {
                     this.loaderService.isLoading(false);

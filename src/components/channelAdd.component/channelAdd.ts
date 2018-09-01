@@ -9,6 +9,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 import {NgForm, FormGroup, FormControl, Validators} from '@angular/forms'
 import {OpenSnackBarService} from "../../services/openSnackbar.service";
 import {UserDataService, User} from "../../services/data.service";
+import {HomeComponent} from '../home.component/home'
 
 @Component({
     selector: 'channelAdd',
@@ -67,6 +68,7 @@ export class ChannelAddComponent implements OnInit, OnDestroy {
                     this.loaderService.isLoading(false);
                     this.subscriptions.add(sub);
                     this.data.setProfile = {...res.json().userInfo};
+                    HomeComponent.updateUser.next(true);
                     this.groups = res.json().userInfo.groups
                 },
                 (error: any) => {

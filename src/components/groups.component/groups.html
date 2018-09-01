@@ -8,20 +8,20 @@
         </div>
         <div class="card">
             <span>{{groupInfo.admin.username}}</span>
-            <span *ngIf="isAdmin" (click)="EditAdmin()"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+            <span *ngIf="CheckAdmin()" (click)="EditAdmin()"><i class="fa fa-pencil" aria-hidden="true"></i></span>
         </div>
         <div class="subtitle">
-            members: <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddUser()" *ngIf="isAdmin"></i>
+            members: <i class="fa fa-plus-circle" aria-hidden="true" (click)="AddUser()" *ngIf="CheckAdmin()"></i>
         </div>
         <div class="card" *ngFor="let member of groupInfo.members">
             <span>{{member.username}}</span>
-            <span>{{member._id}}</span>
-            <span *ngIf="isAdmin" (click)="DeleteUser(member._id)">
+            <span>{{member.email}}</span>
+            <span *ngIf="CheckAdmin()" (click)="DeleteUser(member._id)">
                 <i class="fa fa-trash" aria-hidden="true"></i>
             </span>
         </div>
 
-        <button mat-raised-button class="signIn btn-primary" *ngIf="isAdmin"
+        <button mat-raised-button class="signIn btn-primary" *ngIf="CheckAdmin()"
                 (click)="DeleteGroup()">Delete Group
         </button>
     </div>

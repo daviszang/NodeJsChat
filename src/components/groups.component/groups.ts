@@ -8,6 +8,7 @@ import {LoaderService} from '../../services/loader.service';
 import {AuthenticationService} from '../../services/authentication.service';
 import {NgForm, FormGroup, FormControl, Validators} from '@angular/forms'
 import {OpenSnackBarService} from "../../services/openSnackbar.service";
+import {HomeComponent} from '../home.component/home'
 
 @Component({
     selector: 'chatGroups',
@@ -65,7 +66,14 @@ export class GroupsComponent implements OnInit, OnDestroy {
         this.addUser = false;
         this.submitted = false;
         this.editAdmin = false;
-        this.groupInfo = {};
+
+        this.groupInfo = {
+            members: [{_id: "", username: ""}],
+            _id: "",
+            groupName: "",
+            admin: {_id: "", username: ""}
+        };
+
         this.isAdmin = false;
 
         this.FetchGroup();
@@ -101,13 +109,13 @@ export class GroupsComponent implements OnInit, OnDestroy {
         })
     }
 
-    public CheckAdmin(): void {
+    public CheckAdmin() {
         let localuser = localStorage.getItem('userId');
         if (localuser == this.groupInfo.admin._id) {
-            this.isAdmin = true;
+            return true;
         }
         else {
-            this.isAdmin = false
+            return false
         }
     }
 

@@ -1,7 +1,7 @@
 <div class="channelWrapper">
     <div class="header">
         <h3>{{channelInfo.channelName}}
-            <span (click)="DeleteChannel(channelInfo._id)" *ngIf="isAdmin">
+            <span (click)="DeleteChannel(channelInfo._id)" *ngIf="CheckAdmin()">
                     <i class="fa fa-trash"></i>
             </span>
         </h3>
@@ -13,11 +13,11 @@
         <div class="cards">
             <div class="subtitle">
                 members:
-                <i class="fa fa-plus-circle" aria-hidden="true" *ngIf="isAdmin" (click)="AddUser()"></i>
+                <i class="fa fa-plus-circle" aria-hidden="true" *ngIf="CheckAdmin()" (click)="AddUser()"></i>
             </div>
             <div class="card" *ngFor="let member of channelInfo.members">
                 <span>{{member.username}}</span>
-                <span (click)="DeleteUser(member._id)" *ngIf="isAdmin">
+                <span (click)="DeleteUser(member._id)" *ngIf="CheckAdmin()">
                     <i class="fa fa-trash"></i></span>
             </div>
         </div>

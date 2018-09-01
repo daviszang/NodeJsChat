@@ -4,7 +4,7 @@
 
         <mat-form-field class="row">
             <input matInput name="channelName" class="loginTextBox" placeholder="Channel Name"
-                   [(ngModel)]="channelName" formControlName="groupName" autocomplete="off" required/>
+                   [(ngModel)]="channelName" formControlName="channelName" autocomplete="off" required/>
             <mat-error *ngIf="addFormGroup.get('channelName').hasError('required')">Please enter channel name
             </mat-error>
         </mat-form-field>
