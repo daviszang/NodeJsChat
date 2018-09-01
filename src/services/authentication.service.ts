@@ -114,7 +114,7 @@ export class AuthenticationService {
         this._CreateGroup = this.baseURL + "api/groups/create";
         this._CreateChannel = this.baseURL + "api/channel/create";
         this._UpdateAdmin = this.baseURL + "api/groups/update";
-        this._DeleteGroup = this.baseURL + "api/groups/";
+        this._DeleteGroup = this.baseURL + "api/groups/delete/";
         this._DeleteChannelUser = this.baseURL + "api/channel/delete";
         this._AddUserToChannel = this.baseURL + "api/channel/add";
         this._DeleteChannel = this.baseURL+"api/channel/"
